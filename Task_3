@@ -1,0 +1,47 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import Standardscaler, LabelEncoder
+from sklearn.model_selection import train_test_spilt
+from sklearn.neighbors import Kneighborsclassifier
+from sklearn.metrics import accuracy_score, classification_reports, confusion_matrix
+df pd.read csv('iris.csv')
+X=df.iloc[:,:-1].values
+y=df.iloc[:,-1].values
+labl_encoder=LabelEncoder()
+y= label_encoder.fit transform(y)
+scaler=StandardScaler()
+X_scaled=scaler.fit_transform(X)
+pca=PCA(n_components=2)
+X_pca=pca.fit_transform(X_scaled)
+X_train, X_test, y_train, y_test=test_train_split (X_pca, y,test_size=0.3, random_state(42)
+knn=KNeighborsClassifier(n_neighbors=3)
+
+knn.fir(X_train, y_train)
+y_pred=knn.predict(X_test)
+
+accuracy=accuracy_score(y_test, y_pred)
+lprint (f"Accuracy: {accuracy:.4f}")
+print("\nClassification Report:")
+print (classification_report (y_test, y_pred, target_names=label_encoder.classes_))
+print("Confusion Matriar")
+prant(f"confusion_matrixty (ytest, y_pred)
+
+plt.figure(figsize (61)
+
+pit.scatter (X posly, 1, Xpealy 0, 11, pit.scatter (Xpca (y w 1, 01. Kpcaly 1, 11, label label_encoder.classes_10), alpha=0.6) label label_encoder.classes_[1], alpha 0.6)
+
+pit.scatter (X_pos (y 2, 11, label label_encoder.classes_12), alpha-3.6)
+
+pit.title(PCA (20) - Classification")
+
+pit,xlabel("Principal Component 1")
+
+plt.ylabel("Principal Component 2")
+
+plt.legend()
+
+plt.grid( True)
+
+plt.show()
