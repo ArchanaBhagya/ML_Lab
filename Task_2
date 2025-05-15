@@ -1,0 +1,30 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = pd.read_csv("house_price.csv")
+X = data["house_size"].values
+y = data["price"].values
+
+def local_weight(xq, X, y, tau):
+    w = np.exp(-((X - xq) ** 2) / (2 * tau ** 2))
+    X_b = np.c_[np.ones(len(X)), X]
+    W = np.diag(w)
+    theta = np.linalg.pinv(X_b.T @ W @ X_b) @ (X_b.T @ W @ y)
+    return np.array([1, xq]) @ theta
+
+tau = 100
+xq = 1600
+yp = local_weight(xq, X, y, tau)
+print(f"Predicted price: {yp:.2f}")
+
+xr = np.linspace(X.min(), X.max(), 100)
+yr = np.array([local_weight(x, X, y, tau) for x in xr])
+
+plt.scatter(X, y, color='red', alpha=0.5, label="Actual")
+plt.plot(xr, yr, color='blue', label="Regression")
+plt.scatter([xq], [yp], color='green', label=f"Prediction ({xq})")
+plt.xlabel("House Size")
+plt.ylabel("Price")
+plt.legend()
+plt.show()
